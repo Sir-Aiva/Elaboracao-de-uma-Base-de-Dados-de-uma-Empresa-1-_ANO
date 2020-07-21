@@ -1,0 +1,105 @@
+DROP TABLE cliente;
+DROP TABLE pedido;
+DROP TABLE Categoria;
+DROP TABLE produto;
+CREATE TABLE cliente (
+
+ cod_id NUMBER(9,0),
+ Nome VARCHAR2(50) NOT NULL,
+ Endereço VARCHAR2(100),
+ Contacto NUMBER(9,0),
+ Limite_Crédito NUMBER(8,2) NOT NULL,
+ Estado VARCHAR(6) NOT NULL,
+ primary key (cod_id));
+
+insert into cliente (cod_id, Nome, Endereço, Contacto, Limite_Crédito, Estado)
+values ('01394182','Pedro Bastos Batista','Lisboa, Rua Dr. José António, 291 4ºD','','2345.33','RUIM')
+insert into cliente (cod_id, Nome, Endereço, Contacto, Limite_Crédito, Estado)
+values ('00234324','Joana Sardinha','Lisboa, Avenida da Liberdade, 232 6ºE','','4345.21','RUIM')
+insert into cliente (cod_id, Nome, Limite_Crédito, Estado)
+values ('00034364','Rodrigo Salgado Maia','6999.45','BOM')
+insert into cliente (cod_id, Nome, Endereço, Contacto, Limite_Crédito, Estado)
+values ('00400002','Rui Jorge dos Santos','','923846290','6827.23','RUIM')
+insert into cliente (cod_id, Nome, Endereço, Contacto, Limite_Crédito, Estado)
+values ('00000234','Sofia Rocha','Guarda, Rua da Fonte, 1 C','','7065.78','MÉDIO')
+
+insert into cliente (cod_id, Nome, Endereço, Contacto, Limite_Crédito, Estado)
+values ('13425234','Margariada Filipa Montenegro','Setúbal, Rua do Cabo, 14 A','964837584','745.45','RUIM')
+insert into cliente (cod_id, Nome, Endereço, Contacto, Limite_Crédito, Estado)
+values ('03282394','Rita Luisa Frade','Algarve, Rua da Praia, 23','213947382','9349.32','BOM')
+insert into cliente (cod_id, Nome, Endereço, Contacto, Limite_Crédito, Estado)
+values ('09432762','Vasco Rodrigues Maques Pinto','Porto, Avenida da Paz, 322 8ºE','923847263','120.87','RUIM')
+insert into cliente (cod_id, Nome, Endereço, Contacto, Limite_Crédito, Estado)
+values ('00239723','Brisa Antónia Maria','Madeira, Rua São Roque, 28 A','','5023.33','MÉDIO')
+CREATE TABLE pedido (
+ Número_Pedido NUMBER(7,0),
+ Vendedor VARCHAR2(20) NOT NULL,
+ Data_Elaboração DATE,
+ Quantidade NUMBER(1,0) NOT NULL,
+ Comissão NUMBER(5,2) NOT NULL,
+ primary key (Número_Pedido));
+
+insert into pedido (Número_Pedido, Vendedor, Data_Elaboração, Quantidade, Comissão)
+values ('0000234','João Mendes','','3','24.21')
+insert into pedido (Número_Pedido, Vendedor, Data_Elaboração, Quantidade, Comissão)
+values ('1111432','António Gaia',to_date('20180111','YYYYDDMM'),'1','13.31')
+insert into pedido (Número_Pedido, Vendedor, Data_Elaboração, Quantidade, Comissão)
+values ('1111433','António Gaia', to_date('20180111','YYYYDDMM'),'1','2.50')
+insert into pedido (Número_Pedido, Vendedor, Data_Elaboração, Quantidade, Comissão)
+values ('0146234','Lurdes Maria',to_date('20171201','YYYYDDMM'),'2','20.29')
+insert into pedido (Número_Pedido, Vendedor, Data_Elaboração, Quantidade, Comissão)
+values ('0000238','José Antunes',to_date('20162507','YYYYDDMM'),'8','200.00')
+
+CREATE TABLE Categoria (
+ Nome_categoria VARCHAR2(50),
+ primary key (Nome_categoria));
+
+insert into Categoria (Nome_categoria)
+values ('Detergentes')
+insert into Categoria (Nome_categoria)
+values ('Sabão Líquido')
+insert into Categoria (Nome_categoria)
+values ('Líquido Desinfetante')
+insert into Categoria (Nome_categoria)
+values ('Removedor')
+insert into Categoria (Nome_categoria)
+values ('Desengordurante')
+
+CREATE TABLE produto (
+ cod_produto NUMBER(9,0),
+ Nome VARCHAR2(100),
+ categoria VARCHAR2(50) NOT NULL,
+ Preço NUMBER(5,2) NOT NULL,
+ Quantidade NUMBER(3,0) NOT NULL,
+ primary key (cod_produto),
+ foreign key (Categoria) references Categoria);
+
+insert into produto (cod_produto, Nome, categoria, Preço, Quantidade)
+values ('010204201','Sapoline','Sabão Líquido','2.99','1')
+
+insert into produto (cod_produto, Nome, categoria, Preço, Quantidade)
+values ('010230540','Desinkill','Líquido Desinfetante','10.99','1')
+insert into produto (cod_produto, Nome, categoria, Preço, Quantidade)
+values ('115674323','Basic Desinfeta','Líquido Desinfetante','5.99','1')
+insert into produto (cod_produto, Nome, categoria, Preço, Quantidade)
+values ('232478552','Remove Tudo','Removedor','25.50','2')
+insert into produto (cod_produto, Nome, categoria, Preço, Quantidade)
+values ('010204021','','Detergentes','50.15','4')
+insert into produto (cod_produto, Nome, categoria, Preço, Quantidade)
+values ('104030201','','Desengordurante','15.99','1')
+insert into produto (cod_produto, Nome, categoria, Preço, Quantidade)
+values ('103028392','','Líquido Desinfetante','300.02','20')
+SELECT* from categoria
+
+SELECT cod_id, nome, limite_crédito
+FROM cliente
+WHERE limite_crédito > 6999.99
+ORDER BY limite_crédito;
+
+SELECT Número_Pedido, Vendedor, Comissão
+FROM pedido
+
+SELECT cod_id, nome, limite_crédito
+ FROM cliente
+ WHERE limite_crédito < 6999.99
+ ORDER BY limite_crédito;
